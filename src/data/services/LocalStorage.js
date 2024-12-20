@@ -56,7 +56,24 @@ export const LocalStorage = {
 
             const newTodoItems = data.map(item => {
                 if (item.id === todoItemId) {
-                    return new TodoItem(item.id, item.title, !item.isDone);
+                    return new TodoItem(item.id, item.title, !item.isDone, item.priority);
+                }
+                return item;
+            });
+
+            localStorage.setItem(TODO_ITEMS_LOCAL_STORAGE_KEY, JSON.stringify(newTodoItems));
+            resolve();
+        });
+    },
+
+    updateTodoItemPriorityInLocalStorage: (priority, todoItemId) => {
+        return new Promise((resolve, reject) => {
+            const rawData = localStorage.getItem(TODO_ITEMS_LOCAL_STORAGE_KEY);
+            const data = JSON.parse(rawData);
+
+            const newTodoItems = data.map(item => {
+                if (item.id === todoItemId) {
+                    return new TodoItem(item.id, item.title, item.isDone, priority);
                 }
                 return item;
             });
