@@ -31,5 +31,19 @@ export const LocalStorage = {
         resolve();
       })
     });
+  },
+
+  deleteTodoItemFromLocalStorage: (todoItemId) => {
+    // получить массив элеметов
+    // сделать фельтр по элементам через функцию filter (оставить только нужные элементы)
+    // сохранить отфильтрованный список в ls
+
+    return new Promise((resolve, reject) => {
+      const rawData = localStorage.getItem(TODO_ITEMS_LOCAL_STORAGE_KEY);
+      const data = JSON.parse(rawData);
+      const newTodoItems = data.filter((item) => item.id !== todoItemId)
+      localStorage.setItem(TODO_ITEMS_LOCAL_STORAGE_KEY, JSON.stringify(newTodoItems));
+      resolve();
+    });
   }
 }
