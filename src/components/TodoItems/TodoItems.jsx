@@ -18,6 +18,12 @@ export const TodoItems = () => {
         );
     }
 
+    //Добавляем кнопку сортировки
+    //значение текущей сортировки храниться в локальном стейте
+    //перед выводом элементов нужно провести сортировку с помощью метода sort
+
+
+
     //добавить контролируемый инпут над списком элементов
     //значение инпута храниться в локальном стейте
     //при вводе в инпут нужно проводить фильтрацию элементов
@@ -25,12 +31,6 @@ export const TodoItems = () => {
     //фильтр должен игнорировать пробелы
     //фильтр начинает работать от 3 символов
     //нужно использовать функцию filter у массива
-
-
-    //Добавляем кнопку сортировки
-    //значение текущей сортировки храниться в локальном стейте
-    //перед выводом элементов нужно провести сортировку с помощью метода sort
-
 
     // Фукнция filter вызывает для каждого элемента переданный ей колбек
     // И формирует в filteredBySearchItems новый массив элементов, для которых колбек вернул true
@@ -40,7 +40,12 @@ export const TodoItems = () => {
         // const clearedSearchValue = очистка от пробелов + приведение к одному из регистров
         // const isSearched = проверка вхождения строки поиска в строку заголовка
         // return isSearched
-        return true
+
+        if (searchValue.length < 3) return true;
+
+        const clearedTodoItemTitle = todoItem.title.replace(/\s+/g, '').toLowerCase();
+        const clearedSearchValue = searchValue.replace(/\s+/g, '').toLowerCase();
+        return clearedTodoItemTitle.indexOf(clearedSearchValue) !== -1;
     })
 
 
@@ -51,7 +56,7 @@ export const TodoItems = () => {
 
     return (
         <TodoItemsContainer>
-            <SearchInput value={searchValue}/>
+            <SearchInput value={searchValue} setValue={setSearchValue}/>
             {todoItemsElements}
             <NewTodoItem/>
         </TodoItemsContainer>
