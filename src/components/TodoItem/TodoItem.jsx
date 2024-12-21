@@ -23,7 +23,7 @@ const Delete = styled.span`
     display: inline-block;
     width: 13px;
     height: 13px;
-    background-image: url(assets/images/png/delete.png);
+    background-image: url(/assets/images/png/delete.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 13px;

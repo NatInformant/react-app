@@ -3,5 +3,4 @@ export function TodoItem(id, title, isDone, priority) {
   this.title = title;
   this.isDone = isDone;
   this.priority = priority;
-  // добавить поле приоритета
 }

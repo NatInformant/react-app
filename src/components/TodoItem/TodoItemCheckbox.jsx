@@ -9,7 +9,7 @@ const disabledCss = css`
 const checkedCss = css`
     border-color: #B5B5BA;
     background-color: #B5B5BA;
-    background-image: url(assets/images/svg/todo-done.svg);
+    background-image: url(/assets/images/svg/todo-done.svg);
     background-position: center;
     background-repeat: no-repeat;
 `
