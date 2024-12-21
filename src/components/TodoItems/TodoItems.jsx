@@ -4,9 +4,11 @@ import {NewTodoItem} from '../TodoItem/NewTodoItem';
 import {TodoItem} from '../TodoItem/TodoItem';
 import {useData} from '../../data/hooks/useData';
 import {SearchInput} from './components/SearchInput';
+import {SortButton} from "./components/SortButton";
 
 export const TodoItems = () => {
     const [searchValue, setSearchValue] = useState('');
+    const [sortValue, setSortValue] = useState(0);
 
     const {data: todoItems, isLoading} = useData();
 
@@ -21,7 +23,6 @@ export const TodoItems = () => {
     //Добавляем кнопку сортировки
     //значение текущей сортировки храниться в локальном стейте
     //перед выводом элементов нужно провести сортировку с помощью метода sort
-
 
 
     //добавить контролируемый инпут над списком элементов
@@ -46,7 +47,18 @@ export const TodoItems = () => {
         const clearedTodoItemTitle = todoItem.title.replace(/\s+/g, '').toLowerCase();
         const clearedSearchValue = searchValue.replace(/\s+/g, '').toLowerCase();
         return clearedTodoItemTitle.indexOf(clearedSearchValue) !== -1;
-    })
+
+    }).sort((a, b) => {
+            switch (sortValue) {
+                case 1:
+                    return a.priority - b.priority;
+                case 2:
+                    return b.priority - a.priority;
+                default:
+                    return 0;
+            }
+        }
+    )
 
 
     const todoItemsElements = filteredBySearchItems.map((item, index) => {
@@ -57,6 +69,7 @@ export const TodoItems = () => {
     return (
         <TodoItemsContainer>
             <SearchInput value={searchValue} setValue={setSearchValue}/>
+            <SortButton sortValue={sortValue} setValue={setSortValue}/>
             {todoItemsElements}
             <NewTodoItem/>
         </TodoItemsContainer>
